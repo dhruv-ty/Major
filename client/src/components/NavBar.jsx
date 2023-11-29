@@ -31,7 +31,9 @@ const NavBar = () => {
                     : <HiMenuAlt4 fontSize={28} className='text-white md:hidden cursor-pointer' onClick={() => setToggleMenu(false)}/>
                 }
             </div>
-        </nav>    
+        </nav>  
+        
+        
     );
 }
 

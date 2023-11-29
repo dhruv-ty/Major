@@ -1,4 +1,13 @@
+import {useNavigate} from 'react-router-dom';
+
 const BuyIndi = () => {
+
+    const navigate = useNavigate();
+
+    const navToMoreDetails = () => {
+        navigate('/moreInfo');
+    }
+
     return (        
         <div className="flex justify-center items-center rounded-lg bg-[#26262a] mx-5">
             <div className="flex flex-col w-[350px]">
@@ -24,7 +33,7 @@ const BuyIndi = () => {
                         (Recommended)
                     </div>
                     <div className="items-end justify-end">
-                    <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                    <button type="button" onClick={navToMoreDetails} className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
                         More Info
                     </button>
                     </div>
