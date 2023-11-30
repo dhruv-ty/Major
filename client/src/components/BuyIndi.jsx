@@ -1,12 +1,6 @@
-import {useNavigate} from 'react-router-dom';
+
 
 const BuyIndi = () => {
-
-    const navigate = useNavigate();
-
-    const navToMoreDetails = () => {
-        navigate('/moreInfo');
-    }
 
     return (        
         <div className="flex justify-center items-center rounded-lg bg-[#26262a] mx-5">
@@ -22,7 +16,7 @@ const BuyIndi = () => {
                 </div>
 
                 <div className="text-white text-base font-bold font-sans mx-4 mt-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                    22KeV • $143
+                    22KWH • $143
                 </div>
                 <div className="text-white text-left text-base font-light px-4 mt-2">
                     Distance: 20km
@@ -33,7 +27,7 @@ const BuyIndi = () => {
                         (Recommended)
                     </div>
                     <div className="items-end justify-end">
-                    <button type="button" onClick={navToMoreDetails} className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                    <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
                         More Info
                     </button>
                     </div>

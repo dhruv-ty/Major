@@ -2,8 +2,9 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Welcome from './components/Welcome';
 import Services from './components/Services';
+import Sell from './components/Sell';
 import Transactions from './components/Transactions';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -11,14 +12,13 @@ function App() {
     
     <div className='min-h-screen'>
       <div className='gradient-bg-welcome'>
-      <BrowserRouter>
-        
-          <NavBar />
+      
+        <NavBar />
+                 
           <Welcome />
           <Services />
-          <Transactions />
-        <Footer />        
-      </BrowserRouter>
+          <Sell />
+      
       </div>
       
       
