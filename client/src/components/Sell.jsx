@@ -102,7 +102,7 @@ const Sell = () => {
                 
                 <SellFieldsLabelImp label="How many units are you selling" value="20" units="KWH" type="number" />
                 
-                <SellFieldsLabelImp label="Est. Price" value="20" units="₹" type="number" />
+                <SellFieldsLabelImp label="Est. Price per unit" value="20" units="₹" type="number" />
 
                 <div className="flex flex-row w-full items-start mt-5 justify-center">
                     <div className="text-2xl text-white mt-5 mr-3 w-1/6 font-bold">
