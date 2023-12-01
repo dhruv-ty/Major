@@ -5,21 +5,21 @@ import Services from './components/Services';
 import Sell from './components/Sell';
 import Transactions from './components/Transactions';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import Profile from './components/Profile';
 function App() {
 
   return (
-    
     <div className='min-h-screen'>
-      <div className='gradient-bg-welcome'>
-      
+      {/* <div className='gradient-bg-welcome'>
+        
         <NavBar />
-                 
+        
           <Welcome />
           <Services />
           <Sell />
       
-      </div>
+      </div> */}
+      <Profile/>
       
       
     </div>
