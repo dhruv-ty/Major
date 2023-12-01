@@ -23,7 +23,7 @@ const SellFieldsLabelImp = ({label, value, units, type}) => (
 
         <div className="flex flex-row items-center w-2/6">
             <div className="rounded-lg bg-[#26262a] mt-5">
-                <input type={type} style={{background: "#26262a", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={value} />                
+                <input type={type} min={value} style={{background: "#26262a", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={value} />                
             </div>
 
             <div className="text-xl text-white mt-3 mr-3 ml-3">
@@ -101,8 +101,26 @@ const Sell = () => {
                 </div>
                 
                 <SellFieldsLabelImp label="How many units are you selling" value="20" units="KWH" type="number" />
-                
-                <SellFieldsLabelImp label="Est. Price per unit" value="20" units="₹" type="number" />
+
+                <div className="flex flex-row w-full items-center justify-center">
+                    <div className="flex flex-col mt-3 mr-3 w-4/6">
+                        <div className="text-xl text-white font-bold">
+                            Est. Price per unit
+                        </div>
+                        <h1 className="mt-2 text-[#9ca3af]">(according to current rates: ₹6 per unit)</h1>
+                    </div>
+
+                    <div className="flex flex-row items-center w-2/6">
+                        <div className="rounded-lg bg-[#26262a] mt-5">
+                            <input type="number" min="6" style={{background: "#26262a", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="6" />                
+                        </div>
+
+                        <div className="text-xl text-white mt-3 mr-3 ml-3">
+                            ₹
+                        </div>
+                    </div>
+                </div>
+                                
 
                 <div className="flex flex-row w-full items-start mt-5 justify-center">
                     <div className="text-2xl text-white mt-5 mr-3 w-1/6 font-bold">
