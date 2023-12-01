@@ -12,11 +12,11 @@ const BuyIndi = () => {
                     Jane Doe
                 </div>
                 <div className="text-white text-left text-xs font-light px-4">
-                       #1234, Ria Nagar, Bangalore 570001 Karnataka, India
+                    #1234, Ria Nagar, Bangalore 570001 Karnataka, India
                 </div>
 
                 <div className="text-white text-base font-bold font-sans mx-4 mt-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                    22KWH • $143
+                    22KWH • ₹14
                 </div>
                 <div className="text-white text-left text-base font-light px-4 mt-2">
                     Distance: 20km
