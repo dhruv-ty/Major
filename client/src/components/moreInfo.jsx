@@ -15,6 +15,14 @@ const MoreInfo = () => {
 
                         <div className=" text-[#9ca3af] text-xl mt-2">
                             #1234, Ria Nagar, Bangalore 570001 Karnataka, India
+                        </div>  
+
+                        <div className=" text-[#9ca3af] text-base mt-2">
+                            Distance: 20km
+                        </div>  
+
+                        <div className=" text-[#9ca3af] text-xs mt-2">
+                            show Lat, long here
                         </div>                        
                     </div>
                 </div>
