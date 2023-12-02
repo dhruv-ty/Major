@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className='min-h-screen'>
-      {/* <div className='gradient-bg-welcome'>
+       {/* <div className='gradient-bg-welcome'>
         
         <NavBar />
         
@@ -22,8 +22,8 @@ function App() {
 
           
       
-      </div> */}
-      <Profile/>
+      </div>  */}
+          <Profile/>  
       
       
     </div>
