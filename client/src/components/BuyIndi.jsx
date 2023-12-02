@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const BuyIndi = () => {
 
     return (        
-        <div className="flex justify-center items-center rounded-lg bg-[#26262a] mx-5">
+        <div className="flex justify-center items-center rounded-lg blue-glassmorphism mx-5">
             <div className="flex flex-col w-[350px]">
                 
                 <img src="https://agnisolar.com/wp-content/uploads/2019/08/solar-panel-on-roof-1024x585.png" width={350} resizeMode={"cover"} style={{borderRadius: 10}}/>
@@ -28,9 +28,11 @@ const BuyIndi = () => {
                         (Recommended)
                     </div>
                     <div className="items-end justify-end">
-                    <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                        <Link to="/MoreInfo">More Info</Link>
-                    </button>
+                        <Link to="/MoreInfo">
+                            <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                                More Info
+                            </button>
+                        </Link>
                     </div>
                 </div>
 
