@@ -8,7 +8,9 @@ import MoreInfo from "./components/MoreInfo";
 import Transactions from "./components/Transactions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./components/Profile";
+
 function App() {
+
   return (
     <>
       <div className="min-h-screen gradient-bg-welcome">
