@@ -20,14 +20,14 @@ const Profile = () => {
             <div className="flex flex-col w-[430px] w-full">
                 <div className="flex flex-row">
                     
-                <img src="https://agnisolar.com/wp-content/uploads/2019/08/solar-panel-on-roof-1024x585.png" style={{borderRadius: "50%", height: "200px", width: "200px"}}/>
+                <img src="https://agnisolar.com/wp-content/uploads/2019/08/solar-panel-on-roof-1024x585.png" style={{borderRadius: "50%", height: "150px", width: "150px"}}/>
                 <div className="flex flex-col">
                     
-                <input className="text-white text-3xl font-bold font-sans mx-4 mt-5 bg-transparent blue-glassmorphism" type="text" placeholder="Jane Doe" />
-                <input className="text-white text-left text-xl font-light px-4 my-7 ml-4 bg-transparent blue-glassmorphism" type="text" placeholder="#1234, Ria Nagar, Bangalore 570001 Karnataka, India" style={{width: "130%"}}/>
+                <input className="text-white text-3xl font-bold font-sans mx-4 mt-5 bg-transparent blue-glassmorphism" type="text" defaultValue="Jane Doe" />
+                <input className="text-white text-left text-xl font-light px-4 my-7 ml-4 bg-transparent blue-glassmorphism" type="text" defaultValue="#1234, Ria Nagar, Bangalore 570001 Karnataka, India" style={{width: "130%"}}/>
                 </div>
                 </div>
-                <div className="my-5" style={{width: "40px", height:"2px", background: "rgb(25,116,223)", marginLeft: "90%"}}></div>
+                <div className="my-5" style={{width: "40px", height:"2px", background: "rgb(25,116,223)", marginLeft: "50%"}}></div>
 
                 <div className="flex flex-row w-full items-center justify-center mb-10"  style={{width: "100%"}}>
                     <div className="mt-3 mr-3 w-4/6">
@@ -37,8 +37,8 @@ const Profile = () => {
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <div className="bg-transparent mt-3">
-                            <div className="text-white text-xl">
+                        <div className="bg-[#097969] rounded-lg mt-3 p-3">
+                            <div className="text-white font-bold text-xl">
                                 7000000
                             </div>
                             {/*
@@ -89,7 +89,7 @@ const Profile = () => {
                 
                 <div className="flex flex-row justify-around my-3 mx-2 mt-10" style={{width: "100%"}}>
                 <div className="text-white text-xl font-bold font-sans mt-3 mr-2" >
-                    No. of Solar Panels 
+                    Number of Solar Panels installed
                 </div>
 
                 <input className="blue-glassmorphism bg-transparent my-1 text-white text-muted" type="number" placeholder="0" style={{width: "350px"}}/>
