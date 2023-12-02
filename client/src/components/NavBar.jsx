@@ -19,7 +19,7 @@ const NavBar = () => {
             </div>
             <ul className='text-white md:flex hidden list-none flex-row justify-between items-center flex-initial'>
                 <button type="button" className="text-white justify-center items-center px-8 my-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                    Sell
+                    <Link to="/Sell">Sell</Link>
                 </button>
                 {/* {["Buy", "Transactions", "Profile"].map((item, index) => (
                     <NavBarItem key={item + index} title={item} />

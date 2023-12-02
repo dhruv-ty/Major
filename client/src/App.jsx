@@ -17,6 +17,7 @@ function App() {
           <Routes>
             <Route exact path='/' element={<Home/>}/>
             <Route exact path='/Profile' element={<Profile/>}/>
+            <Route exact path='/Sell' element={<Sell/>}/>
             <Route exact path='/MoreInfo' element={<MoreInfo/>}/>
           </Routes>
       </BrowserRouter>
