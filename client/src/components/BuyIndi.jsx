@@ -1,5 +1,6 @@
 
-
+import React from "react";
+import { Link } from "react-router-dom";
 const BuyIndi = () => {
 
     return (        
@@ -28,7 +29,7 @@ const BuyIndi = () => {
                     </div>
                     <div className="items-end justify-end">
                     <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                        More Info
+                        <Link to="/MoreInfo">More Info</Link>
                     </button>
                     </div>
                 </div>

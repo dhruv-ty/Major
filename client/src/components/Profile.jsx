@@ -13,10 +13,9 @@ const Profile = () => {
             }
         );
     }
-    return ( 
-        <div className="min-h-screen">     
-        <div className="gradient-bg-welcome" style={{width: "100%", display: "grid", placeItems: "center"}}>
-            <NavBar />
+    return (  
+        <div className="min-h-screen" style={{width: "100%", display: "grid", placeItems: "center"}}>
+            {/* <NavBar /> */}
             <div className="border-2 border-sky-500 flex justify-start py-10 rounded-lg mx-2 my-10 px-12" style={{height: "auto", width: "60%", boxShadow: '0px 0px 50px -7px rgba(25,116,223,0.75)', background: "rgba(38, 38, 42,0.6)"}}>
             <div className="flex flex-col w-[430px]">
                 <div className="flex flex-row">
@@ -76,8 +75,7 @@ const Profile = () => {
             <div></div>
             <button className="text-white font-bold mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">Save Changes</button>
             </div>
-        </div>  
-        </div>       
+        </div>         
     );
 }
 

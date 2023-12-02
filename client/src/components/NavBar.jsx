@@ -4,15 +4,15 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import logo from '../../images/logo.png';
 
-const NavBarItem = ({ title, classprops }) => (
-    <li className={`text-white mx-4 cursor-pointer ${classprops}`}>{title}</li>
-  );
+// const NavBarItem = ({ title, classprops }) => (
+//     <li className={`text-white mx-4 cursor-pointer ${classprops}`}>{title}</li>
+//   );
   
 
 const NavBar = () => {
     const [toggleMenu, setToggleMenu] = React.useState(false);  
 
-    return (        
+    return (     
         <nav className='w-full flex md:justify-center justify-between items-center p-4'>
             <div className='md:flex-[0.5] flex-initial justify-center items-center'>
                 <img src={logo} className='w-20 cursor-pointer'/>
@@ -21,9 +21,11 @@ const NavBar = () => {
                 <button type="button" className="text-white justify-center items-center px-8 my-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
                     Sell
                 </button>
-                {["Buy", "Transactions", "Profile"].map((item, index) => (
+                {/* {["Buy", "Transactions", "Profile"].map((item, index) => (
                     <NavBarItem key={item + index} title={item} />
-                ))}                
+                ))}    */}
+                <li className='text-white mx-4 cursor-pointer'>Transactions</li>             
+                <li className='text-white mx-4 cursor-pointer'><Link to='/Profile'>Profile</Link></li>             
             </ul>
             <div className='flex relative'>
                 {toggleMenu
@@ -31,7 +33,7 @@ const NavBar = () => {
                     : <HiMenuAlt4 fontSize={28} className='text-white md:hidden cursor-pointer' onClick={() => setToggleMenu(false)}/>
                 }
             </div>
-        </nav>  
+        </nav> 
         
         
     );
