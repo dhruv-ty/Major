@@ -1,10 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { EnergyContext } from "../context/EnergyContext";
-import { useContext, useState } from "react";
-const BuyIndi = ({Name, Plant }) => {
-
+const BuyIndi = ({Name, Plant, Energy, Price }) => {
 
     return (        
         <div className="flex justify-center items-center rounded-lg blue-glassmorphism mx-5">
@@ -20,7 +17,7 @@ const BuyIndi = ({Name, Plant }) => {
                 </div>
 
                 <div className="text-white text-base font-bold font-sans mx-4 mt-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                    22KWH • ₹14
+                    {Energy}KWH • ₹{Price}
                 </div>
                 <div className="text-white text-left text-base font-light px-4 mt-2">
                     Distance: 20km
