@@ -13,7 +13,34 @@ const Input = ({placeholder, name, type, value, handleChange}) => (
 
 const Welcome = () => {
 
-    const [walletAddr, setWalletAddr] = useState("");
+    const [walletAddr, setWalletAddr] = useState("0x00000000000");
+
+    useEffect(() => {
+        findAuthorizedAccount();
+    }, []);
+
+    const findAuthorizedAccount = async () => { //Gets authorized accounts        
+        
+        try{
+            if(ethereum == null){
+                console.log("findAuthorizedAccount: Metamask not found");
+                return;
+            }
+
+            const accounts = await ethereum.request({method: "eth_accounts"});
+
+            if(accounts.length == 0){
+                console.log("findAuthorizedAccount: No authorized accounts found");
+                connectWallet();
+            }
+            else{
+                console.log("Finished Setting");
+                setWalletAddr(accounts[0]);                
+            }
+            } catch(error){
+                console.log(error);
+        }
+    }
 
     async function connectWallet() {
         if(window.ethereum){
@@ -31,33 +58,6 @@ const Welcome = () => {
             
         }
     }
-
-    const findAuthorizedAccount = async () => { //Gets authorized accounts
-        //const ethereum = getEthereumObject();
-        
-        try{
-            if(ethereum == null){
-                console.log("findAuthorizedAccount: Metamask not found");
-                return;
-            }
-    
-            const accounts = await ethereum.request({method: "eth_accounts"});
-    
-            if(accounts.length == 0){
-                console.log("findAuthorizedAccount: No authorized accounts found");
-                connectWallet();
-            }
-            else{
-                console.log("Finished Setting");
-                setWalletAddr(accounts[0]);
-                //getContract(ethereum);
-            }
-            } catch(error){
-                console.log(error);
-        }
-    }
-    
-    useEffect(()=> {findAuthorizedAccount});
 
     return (        
 
@@ -80,8 +80,13 @@ const Welcome = () => {
                     
                 </div>
                 ) : ( 
-                <div className="rounded-lg bg-[#26262a] w-full mt-5 text-white text-base p-5">
-                    {walletAddr}
+                <div className="flex flex-row items-center justify-center">
+                    <div className="text-white text-left font-bold mt-5 2-1/6 mr-10">
+                        Signed in! Here's your wallet address
+                    </div>
+                    <div className="rounded-lg blue-glassmorphism w-fit mt-5 text-white text-base p-5">
+                        {walletAddr}
+                    </div>
                 </div>
                 )
             }    
