@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TransactionCard from "./TransactionCard";
+import { useContext, useState } from "react";
+import { EnergyContext } from "../context/EnergyContext";
+import { BuyContext } from "../context/BuyContext";
 const Transactions = () => {
   const transactionsData = [
     { id: 1, sellerName: 'Seller 1', description: 'Transaction 1', date: '01/02/2023',  energyPurchased: 500},
@@ -11,6 +14,8 @@ const Transactions = () => {
     { id: 6, sellerName: 'Seller 6', description: 'Transaction 6', date: '01/02/2023',  energyPurchased: 900},
     
   ];
+  const {handlecount}=useContext(BuyContext);
+  console.log(handlecount());
   return (        
     <div className="flex w-full justify-center items-center ">
     <div className='grid grid-cols-3 gap-4 items-center justify-center content-around'>                

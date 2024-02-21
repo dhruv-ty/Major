@@ -9,8 +9,6 @@ const Transactions = () => {
                 <Welcome/>
                 <Services/>
            </div>
-
-
         </div>       
     );
   }

@@ -29,7 +29,7 @@ const Welcome = () => {
                     method: "eth_requestAccounts",
                 });
                 console.log(account);
-                setWalletAddr(account);
+                setWalletAddr(account[0]);
             } catch(error){
                 console.log(error);
             }

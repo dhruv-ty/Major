@@ -1,52 +1,24 @@
-import { useState } from "react";
-
-const SellFields = ({label, value}) => (
-    
-    <div className="flex flex-row w-full items-center justify-center">
-        <div className="text-2xl text-white mt-3 mr-3 w-1/6 font-bold">
-            {label}
-        </div>
-
-        <div className="rounded-lg blue-glassmorphism w-5/6 mt-5">
-            <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={value} />                
-        </div>
-    </div>
-    
-);
-
-const SellFieldsLabelImp = ({label, value, units, type}) => (
-    
-    <div className="flex flex-row w-full items-center justify-center">
-        <div className="text-xl text-white mt-3 mr-3 w-4/6 font-bold">
-            {label}
-        </div>
-
-        <div className="flex flex-row items-center w-2/6">
-            <div className="rounded-lg mt-5">
-                <input type={type} min={value} style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={value} />                
-            </div>
-
-            <div className="text-xl text-white mt-3 mr-3 ml-3">
-                {units}
-            </div>
-        </div>
-    </div>
-    
-);
-
+import { useContext, useState } from "react";
+import { EnergyContext } from "../context/EnergyContext";
 
 
 const Sell = () => {
 
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
+    const [Lat, setLat] = useState("");
+    const [Long, setLong] = useState("");
+    const [SenderName, setSenderName] = useState("Rama Krishnan");
+    const [PlantAdress, setPlantAdress] = useState("F-265, Ria Nagar, Bangalore 570001 Karnataka");
+    const [Desc,setDesc] =useState("");
+    const [Units, setUnits] = useState(20);
+    const [PricePerUnit, setPricePerUnit] = useState(6);
+    const {handlecount,sendEnergy,CurrentAccount}=useContext(EnergyContext);
     
 
     const componentDidMount = () => {
 
         navigator.geolocation.getCurrentPosition(function(position) {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
+            setLat('' + position.coords.latitude);
+            setLong('' + position.coords.longitude);
     
           console.log("Latitude is :", position.coords.latitude);
     
@@ -64,11 +36,29 @@ const Sell = () => {
                 </div>
                 <div className="text-xl text-[#9ca3af] p-3 mb-10">
                     Fill out or confirm the below details to become a provider of energy
-                </div>
+                </div>s
 
-                <SellFields label="Name" value="Jane Doe"/>
+                <div className="flex flex-row w-full items-center justify-center">
+        <div className="text-2xl text-white mt-3 mr-3 w-1/6 font-bold">
+             Name
+        </div>
 
-                <SellFields label="Address" value="#1234, Ria Nagar, Bangalore 570001 Karnataka, India, Asia, Earth" />
+        <div className="rounded-lg blue-glassmorphism w-5/6 mt-5">
+            <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={"Rama Krishnan"} onChange={(e)=> setSenderName(e.target.value)} />                
+        </div>
+    </div>
+
+    <div className="flex flex-row w-full items-center justify-center">
+        <div className="text-2xl text-white mt-3 mr-3 w-1/6 font-bold">
+             Plant Address
+        </div>
+
+        <div className="rounded-lg blue-glassmorphism w-5/6 mt-5">
+            <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={"F-265, Ria Nagar, Bangalore 570001 Karnataka"} onChange={(e)=> setPlantAdress(e.target.value)} />                
+        </div>
+    </div>
+
+
 
                 <div className="flex flex-row w-full items-center justify-around mt-10 mb-10">
 
@@ -78,7 +68,7 @@ const Sell = () => {
                         </div>
                         <div className="rounded-lg blue-glassmorphism w-[200px] mt-5">
                             <div className="text-base text-[#9ca3af] p-3">
-                                {latitude}
+                                {Lat}
                             </div>
                         </div>
                     </div>
@@ -89,7 +79,7 @@ const Sell = () => {
                         </div>
                         <div className="rounded-lg blue-glassmorphism w-[200px] mt-5">
                             <div className="text-base text-[#9ca3af] p-3">
-                                {longitude}
+                                {Long}
                             </div>
                         </div>
                     </div>
@@ -100,7 +90,23 @@ const Sell = () => {
 
                 </div>
                 
-                <SellFieldsLabelImp label="How many units are you selling" value="20" units="KWH" type="number" />
+
+                <div className="flex flex-row w-full items-center justify-center">
+        <div className="text-xl text-white mt-3 mr-3 w-4/6 font-bold">
+            Units
+        </div>
+
+        <div className="flex flex-row items-center w-2/6">
+            <div className="rounded-lg mt-5">
+                <input type="number" min={20} style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={20}  onChange={(e)=> setUnits(e.target.value)}/>                
+            </div>
+
+            <div className="text-xl text-white mt-3 mr-3 ml-3">
+                KWH
+            </div>
+        </div>
+    </div>
+               
 
                 <div className="flex flex-row w-full items-center justify-center">
                     <div className="flex flex-col mt-3 mr-3 w-4/6">
@@ -112,7 +118,7 @@ const Sell = () => {
 
                     <div className="flex flex-row items-center w-2/6">
                         <div className="rounded-lg mt-5">
-                            <input type="number" min="6" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="6" />                
+                            <input type="number" min="6" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="6" onChange={(e)=> setPricePerUnit(e.target.value)}/>                
                         </div>
 
                         <div className="text-xl text-white mt-3 mr-3 ml-3">
@@ -128,12 +134,14 @@ const Sell = () => {
                     </div>
 
                     <div className="rounded-lg w-5/6 mt-5 ml-3">
-                        <textarea rows="5" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder="Enter some description">
+                        <textarea onChange={(e)=> setDesc(e.target.value)} rows="5" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder="Enter some description">
                             </textarea>             
                     </div>
                 </div>
 
-                <button type="button" className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                <button type="button" className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
+                onClick={(e)=> sendEnergy(SenderName, PlantAdress,Lat,Long,Units,PricePerUnit,Desc)}
+                >
                     Confirm and sell
                 </button>
             </div>

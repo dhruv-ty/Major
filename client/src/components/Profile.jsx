@@ -1,5 +1,6 @@
+import { NodeContext } from "../context/NodeContext";
 import NavBar from "./NavBar";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 const Profile = () => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
@@ -13,9 +14,15 @@ const Profile = () => {
             }
         );
     }
+
+    const {handlecount,addNode} = useContext(NodeContext);
     return (  
+
+        
         <div className="min-h-screen" style={{width: "100%", display: "grid", placeItems: "center"}}>
             {/* <NavBar /> */}
+            <button onClick={(e)=> addNode()}>Add Node</button>
+            <button onClick={(e) => handlecount()}>Show Profiles</button>
             <div className="border-2 border-sky-500 flex justify-start py-10 rounded-lg mx-2 my-10 px-12" style={{height: "auto", width: "60%", boxShadow: '0px 0px 50px -7px rgba(25,116,223,0.75)', background: "rgba(38, 38, 42,0.6)"}}>
             <div className="flex flex-col w-[430px] w-full">
                 <div className="flex flex-row">

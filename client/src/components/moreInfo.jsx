@@ -1,4 +1,20 @@
+import { BuyContext } from "../context/BuyContext";
+import { useContext, useState } from "react";
+
 const MoreInfo = () => {
+    const {buyEnergy}=useContext(BuyContext);
+    const [Units, setUnits] = useState(0);
+    const [SellerLat, setSellerLat] = useState("");
+    const [SellerLong, setSellerLong] = useState("");
+    const [SellerAddress, setSellerAddress] = useState("0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A");
+    const [SellerName, setSellerName] = useState("Rama Krishnan");
+    const [SellerPlantAdress, setSellerPlantAdress] = useState("F-265, Ria Nagar, Bangalore 570001 Karnataka");
+    const [PricePerUnit, setPricePerUnit] = useState(6);
+    const [TotalPrice, setTotalPrice] = useState(0);    
+
+    // buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit);
+
+
     return (        
         <div className="flex flex-row w-full mt-20 justify-center items-center">
             <div className="flex flex-col w-1/2">
@@ -109,7 +125,7 @@ const MoreInfo = () => {
 
                             <div className="flex flex-row items-center w-2/6">
                                 <div className="rounded-lg blue-glassmorphism mt-5">
-                                    <input type="number" min="0" className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="0" />                
+                                    <input onChange={(e)=>setUnits(e.target.value)} type="number" min="0" className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="0" />                
                                 </div>
 
                                 <div className="text-xl text-white mt-3 mr-3 ml-3">
@@ -138,7 +154,10 @@ const MoreInfo = () => {
                 </div>
                 
                 <div className="flex flex-row w-full items-end justify-end">
-                    <button type="button" className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                    <button type="button"
+                    className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"                     
+                    onClick={(e) => buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit)}
+                    >
                         Confirm and buy
                     </button>
                 </div>

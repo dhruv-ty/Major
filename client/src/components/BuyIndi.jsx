@@ -1,7 +1,10 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-const BuyIndi = () => {
+import { EnergyContext } from "../context/EnergyContext";
+import { useContext, useState } from "react";
+const BuyIndi = ({Name, Plant }) => {
+
 
     return (        
         <div className="flex justify-center items-center rounded-lg blue-glassmorphism mx-5">
@@ -10,10 +13,10 @@ const BuyIndi = () => {
                 <img src="https://agnisolar.com/wp-content/uploads/2019/08/solar-panel-on-roof-1024x585.png" width={350} resizeMode={"cover"} style={{borderRadius: 10}}/>
                 
                 <div className="text-white text-2xl font-bold font-sans mx-4 mt-5">
-                    Jane Doe
+                    {Name}
                 </div>
                 <div className="text-white text-left text-xs font-light px-4">
-                    #1234, Ria Nagar, Bangalore 570001 Karnataka, India
+                    {Plant}
                 </div>
 
                 <div className="text-white text-base font-bold font-sans mx-4 mt-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
