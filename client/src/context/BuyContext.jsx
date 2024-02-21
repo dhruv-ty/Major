@@ -35,7 +35,7 @@ const handlechange =(e, name)=>{
 
         const accounts =await ethereum.request({method: 'eth_accounts'});
         if(accounts.length){
-            setCurrentAccount(accounts[1]);
+            setCurrentAccount(accounts[0]);
         }
         else{
             console.log("No Accounts Found");
@@ -127,4 +127,6 @@ const handlecount = async () =>{
             {children}
         </BuyContext.Provider>
     );
+
+    //for transactions page
 };
