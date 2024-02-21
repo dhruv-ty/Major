@@ -23,9 +23,9 @@ const Services = ({data, len}) => {
     */}
 
     return (        
-        <div className="flex w-full mt-10 justify-center items-center">
+        <div className="flex flex-col w-full mt-10 justify-center items-center">            
             {/*<button style={{position: 'flex',top:'100px',width:'300px',height:'60px'}} className='btn' onClick={(e) => handleclick()}>Generate Listing</button>*/}
-            <div >                
+            <div>                
                 
                 {data >=1 &&
                     <div className='grid grid-cols-3 gap-4 items-center justify-center content-around' >
