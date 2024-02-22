@@ -13,7 +13,7 @@ const Input = ({placeholder, name, type, value, handleChange}) => (
 
 const Welcome = () => {
 
-    const [walletAddr, setWalletAddr] = useState("0x00000000000");
+    const [walletAddr, setWalletAddr] = useState("");
 
     useEffect(() => {
         findAuthorizedAccount();
@@ -32,6 +32,7 @@ const Welcome = () => {
             if(accounts.length == 0){
                 console.log("findAuthorizedAccount: No authorized accounts found");
                 connectWallet();
+                getLatLong();
             }
             else{
                 console.log("Finished Setting");

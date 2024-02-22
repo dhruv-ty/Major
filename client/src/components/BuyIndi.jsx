@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-const BuyIndi = ({Name, Plant, Energy, Price }) => {
+const BuyIndi = ({Name, Plant, Energy, Price, Lat, Long, Distance}) => {
 
     return (        
         <div className="flex justify-center items-center rounded-lg blue-glassmorphism mx-5">
@@ -20,15 +20,12 @@ const BuyIndi = ({Name, Plant, Energy, Price }) => {
                     {Energy}KWH • ₹{Price}
                 </div>
                 <div className="text-white text-left text-base font-light px-4 mt-2">
-                    Distance: 20km
+                    Distance: {Distance}km
                 </div>
 
-                <div className="flex flex-row w-full justify-between">
-                    <div className="text-white text-left text-xs font-light px-4 mt-3">
-                        (Recommended)
-                    </div>
+                <div className="flex flex-row w-full justify-end">                    
                     <div className="items-end justify-end">
-                        <Link to="/MoreInfo">
+                        <Link to="/MoreInfo" state={{name: Name, plant: Plant, energy: Energy, price: Price, lat: Lat, long: Long, dist: Distance}}>
                             <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
                                 More Info
                             </button>

@@ -1,9 +1,11 @@
 import { BuyContext } from "../context/BuyContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);
-    const [Units, setUnits] = useState(0);
+    const [Units, setUnits] = useState(20);
     const [SellerLat, setSellerLat] = useState("");
     const [SellerLong, setSellerLong] = useState("");
     const [SellerAddress, setSellerAddress] = useState("0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A");
@@ -14,6 +16,15 @@ const MoreInfo = () => {
 
     // buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit);
 
+    const location = useLocation();
+    const [locState, setLocState] = useState({name: '', plant: '', energy: '', price: '', lat: '', long: '', dist: ''})
+
+    useEffect(() => {
+        console.log(location.state)        
+        if(location.state){            
+            setLocState(location.state);
+        }        
+    }, [location])
 
     return (        
         <div className="flex flex-row w-full mt-20 justify-center items-center">
@@ -26,19 +37,19 @@ const MoreInfo = () => {
 
                     <div className="flex flex-col w-5/6 p-2">                        
                         <div className="text-white font-bold text-2xl">
-                            Jane Doe
+                            {locState.name}
                         </div>
 
-                        <div className=" text-[#9ca3af] text-xl mt-2">
-                            #1234, Ria Nagar, Bangalore 570001 Karnataka, India
+                        <div className=" text-[#9ca3af] text-xl mt-1">
+                            {locState.plant}
                         </div>  
 
                         <div className=" text-[#9ca3af] text-base mt-2">
-                            Distance: 20km
+                            Distance: {locState.dist}km
                         </div>  
 
                         <div className=" text-[#9ca3af] text-xs mt-2">
-                            show Lat, long here
+                            Lat: {locState.lat}, Long: {locState.long}
                         </div>                        
                     </div>
                 </div>
@@ -83,7 +94,7 @@ const MoreInfo = () => {
 
                         <div className="flex flex-row w-full justify-around items-center mt-5">                            
                             <div className="text-white text-2xl font-bold font-sans mx-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                                22KWH
+                                {locState.energy}KWH
                             </div>                                
                             
                             <div className="text-white text-2xl font-bold">
@@ -93,7 +104,7 @@ const MoreInfo = () => {
                             <div className="flex flex-col items-center">
                                 <div className="flex flex-row items-center">
                                     <div className="text-white text-2xl font-bold font-sans mx-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                                        ₹15
+                                        ₹{locState.price}
                                     </div>
 
                                     <div className="text-white text-2xl font-bold">
@@ -125,7 +136,14 @@ const MoreInfo = () => {
 
                             <div className="flex flex-row items-center w-2/6">
                                 <div className="rounded-lg blue-glassmorphism mt-5">
-                                    <input onChange={(e)=>setUnits(e.target.value)} type="number" min="0" className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="0" />                
+                                    <input onChange={(e) => {
+                                        if(e.target.value > locState.energy){                                            
+                                            
+                                        }else{
+                                            setUnits(e.target.value)
+                                        }
+                                            
+                                        }} step={2} type="number" min={5} max={locState.energy} className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} value={locState.energy} />                
                                 </div>
 
                                 <div className="text-xl text-white mt-3 mr-3 ml-3">
@@ -141,7 +159,7 @@ const MoreInfo = () => {
 
                             <div className="flex flex-row items-center w-2/6">
                                 <div className="text-white text-base font-bold font-sans mt-5 mx-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                                        120
+                                        {Units*locState.price}
                                 </div>
 
                                 <div className="text-xl text-white mt-3 mr-3 ml-3 items-center mt-5">
