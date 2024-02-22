@@ -1,7 +1,6 @@
 import { BuyContext } from "../context/BuyContext";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);

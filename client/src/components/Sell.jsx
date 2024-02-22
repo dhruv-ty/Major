@@ -36,7 +36,7 @@ const Sell = () => {
                 </div>
                 <div className="text-xl text-[#9ca3af] p-3 mb-10">
                     Fill out or confirm the below details to become a provider of energy
-                </div>s
+                </div>
 
                 <div className="flex flex-row w-full items-center justify-center">
         <div className="text-2xl text-white mt-3 mr-3 w-1/6 font-bold">

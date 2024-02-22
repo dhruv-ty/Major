@@ -16,7 +16,7 @@ const TransactionCard = ({sellerName, description, date, amount, energyPurchased
                 {sellerName}
             </div>
             <div className="text-white text-xs font-sans mx-3 justify-center items-center w-fit px-2 py-2">
-                {moment.unix(date).fromNow()}
+                {moment.unix(date).format('L')}
             </div>
         </div>
         <div className="text-white text-left text-xs font-light px-4">
