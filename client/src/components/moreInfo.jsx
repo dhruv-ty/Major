@@ -5,7 +5,7 @@ import Snackbar from '@mui/material/Snackbar';
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);
-    const [Units, setUnits] = useState(20);
+    
     const [SellerLat, setSellerLat] = useState("");
     const [SellerLong, setSellerLong] = useState("");
     const [SellerAddress, setSellerAddress] = useState("0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A");
@@ -22,9 +22,11 @@ const MoreInfo = () => {
     useEffect(() => {
         console.log(location.state)        
         if(location.state){            
-            setLocState(location.state);
-        }        
+            setLocState(location.state);            
+        }               
     }, [location])
+
+    const [Units, setUnits] = useState(0);
 
     return (        
         <div className="flex flex-row w-full mt-20 justify-center items-center">
@@ -143,7 +145,7 @@ const MoreInfo = () => {
                                             setUnits(e.target.value)
                                         }
                                             
-                                        }} step={2} type="number" min={5} max={locState.energy} className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} value={locState.energy} />                
+                                        }} step={2} type="number" min={5} max={locState.energy} className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={locState.energy} />                
                                 </div>
 
                                 <div className="text-xl text-white mt-3 mr-3 ml-3">
@@ -159,7 +161,7 @@ const MoreInfo = () => {
 
                             <div className="flex flex-row items-center w-2/6">
                                 <div className="text-white text-base font-bold font-sans mt-5 mx-4 rounded-lg bg-[#097969] justify-center items-center w-fit px-3 py-1">
-                                        {Units*locState.price}
+                                        {(Units != 0) ? Units*locState.price : locState.energy*locState.price}
                                 </div>
 
                                 <div className="text-xl text-white mt-3 mr-3 ml-3 items-center mt-5">

@@ -20,6 +20,7 @@ const signer = provider.getSigner()
 
 export const BuyTransactionProvider = ({children}) =>{
 const [CurrentAccount, setCurrentAccount] = useState("");
+const [Transactions, setTransactions] = useState({})
 const [formdata, setformdata] = useState({addressto: "", amount: '',  message: ''});
 const [loading, setloading] = useState(false);
 const [Count, setCount] = useState(localStorage.getItem('Count'));
@@ -76,7 +77,13 @@ const handlecount = async () =>{
         const res = (await EnergyContract).functions;
 
         await res.getAll().then((x)=>console.log(x));
-        
+
+        const xp = (await EnergyContract).functions.getAll().then((x)=>{
+            const  v = x.map(obj => ({...obj}));
+           // console.log(v);
+            setTransactions(v);
+            
+       })
     } catch (error) {
         console.log(error);
 
@@ -123,7 +130,7 @@ const handlecount = async () =>{
     }
     
     return (
-        <BuyContext.Provider value={{connectwallet,CurrentAccount,handlecount,buyEnergy}}> 
+        <BuyContext.Provider value={{connectwallet,CurrentAccount,handlecount,buyEnergy,Transactions}}> 
             {children}
         </BuyContext.Provider>
     );
