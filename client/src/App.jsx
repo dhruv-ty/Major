@@ -8,6 +8,7 @@ import MoreInfo from "./components/MoreInfo";
 import Transactions from "./components/Transactions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./components/Profile";
+import AddProfile from "./components/AddProfile";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route exact path='/Sell' element={<Sell/>}/>
             <Route exact path='/MoreInfo' element={<MoreInfo/>}/>
             <Route exact path='/Transactions' element={<Transactions/>}/>
+            <Route exact path='/AddProfile' element={<AddProfile/>}/>
           </Routes>
       </BrowserRouter>
       </div>

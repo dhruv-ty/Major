@@ -2,7 +2,9 @@ import { NodeContext } from "../context/NodeContext";
 import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 import React, {useContext, useState} from "react";
+
 const Profile = () => {
+
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const geolocate = ()=>{
@@ -17,9 +19,9 @@ const Profile = () => {
     }
 
     const {handlecount,addNode} = useContext(NodeContext);
-    return (  
 
-        
+
+    return (    
         <div className="min-h-screen" style={{width: "100%", display: "grid", placeItems: "center"}}>
             {/* <NavBar /> */}
             <Link to="/AddProfile">
