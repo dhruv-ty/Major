@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 import pic from '../../images/pic.jpg';
 import moment from 'moment';
 
@@ -19,7 +20,10 @@ const TransactionCard = ({sellerName, description, date, amount, energyPurchased
                 {moment.unix(date).format('L')}
             </div>
         </div>
-        <div className="text-white text-left text-xs font-light px-4">
+
+        <Rating style={{ maxWidth: 70, maxHeight: 20, marginLeft: 15}} value={4} items={5} readOnly={true}/>  
+
+        <div className="text-white text-left text-xs font-light px-4 mt-2">
             {description}
         </div>
 
