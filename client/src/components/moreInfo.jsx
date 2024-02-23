@@ -1,12 +1,15 @@
 import { BuyContext } from "../context/BuyContext";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);
     
     const [SellerLat, setSellerLat] = useState("");
     const [SellerLong, setSellerLong] = useState("");
+    const [starRating, setStarRating] = useState(0);
     const [SellerAddress, setSellerAddress] = useState("0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A");
     const [SellerName, setSellerName] = useState("Rama Krishnan");
     const [SellerPlantAdress, setSellerPlantAdress] = useState("F-265, Ria Nagar, Bangalore 570001 Karnataka");
@@ -36,10 +39,15 @@ const MoreInfo = () => {
                         <img src="https://agnisolar.com/wp-content/uploads/2019/08/solar-panel-on-roof-1024x585.png" resizeMode={"cover"} style={{width: 100, height: 100, display: "block", borderRadius: "50%"}}/>
                     </div>
 
-                    <div className="flex flex-col w-5/6 p-2">                        
-                        <div className="text-white font-bold text-2xl">
-                            {locState.name}
-                        </div>
+                    <div className="flex flex-col w-5/6 p-2">  
+                        <div className="flex flex-row">
+                            <div className="text-white font-bold text-2xl mr-2">
+                                {locState.name} 
+                            </div>
+                            <div className="ml-2 mt-2">
+                                <Rating style={{ maxWidth: 100, maxHeight: 30}} value={4} items={5} readOnly={true}/>  
+                            </div>  
+                        </div>                      
 
                         <div className=" text-[#9ca3af] text-xl mt-1">
                             {locState.plant}
@@ -51,7 +59,9 @@ const MoreInfo = () => {
 
                         <div className=" text-[#9ca3af] text-xs mt-2">
                             Lat: {locState.lat}, Long: {locState.long}
-                        </div>                        
+                        </div>      
+                        
+                                          
                     </div>
                 </div>
 
@@ -113,7 +123,7 @@ const MoreInfo = () => {
                                     </div>
                                 </div>
 
-                                <h1 className="mt-2 text-[#9ca3af]">(according to current rates: ₹6 per unit)</h1>
+                                {/*<h1 className="mt-2 text-[#9ca3af]">(according to current rates: ₹6 per unit)</h1>*/}
                             </div>
                         </div>   
                     </div>
@@ -170,6 +180,21 @@ const MoreInfo = () => {
                         </div>                         
 
                     </div>
+                </div>
+
+                <div className="flex flex-row w-full rounded-lg blue-glassmorphism p-6 mt-3">                
+                    <div className="flex flex-col w-full p-2">                        
+                        <div className="text-white font-bold text-xl">
+                            Already purchased from {locState.name}?
+                        </div>                        
+                    
+                        <div className="flex flex-row w-full items-center justify-center mt-4">
+                            <div className="text-white font-bold text-xl mr-10">
+                                    Give a rating 
+                            </div>   
+                            <Rating style={{ maxWidth: 150, maxHeight: 70}} value={starRating} items={5} onChange={(e) => {setStarRating(e)}} />  
+                        </div>
+                    </div> 
                 </div>
                 
                 <div className="flex flex-row w-full items-end justify-end">
