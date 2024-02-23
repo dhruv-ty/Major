@@ -113,7 +113,7 @@ const Sell = () => {
                         <div className="text-xl text-white font-bold">
                             Est. Price per unit
                         </div>
-                        <h1 className="mt-2 text-[#9ca3af]">(according to current rates: ₹6 per unit)</h1>
+                        {/*<h1 className="mt-2 text-[#9ca3af]">(according to current rates: ₹6 per unit)</h1>*/}
                     </div>
 
                     <div className="flex flex-row items-center w-2/6">

@@ -1,12 +1,15 @@
 import { BuyContext } from "../context/BuyContext";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Rating } from '@smastrom/react-rating'
-import '@smastrom/react-rating/style.css'
+import { Rating } from '@smastrom/react-rating';
+import '@smastrom/react-rating/style.css';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);
     
+    const data = [{name: '2/11/2023', energy: 0}, {name: '2/12/2023', energy: 250}, {name: '3/12/2023', energy: 200}, {name: '4/12/2023', energy: 100}];
+
     const [SellerLat, setSellerLat] = useState("");
     const [SellerLong, setSellerLong] = useState("");
     const [starRating, setStarRating] = useState(0);
@@ -76,10 +79,18 @@ const MoreInfo = () => {
                 </div>
 
                 <div className="flex flex-row w-full rounded-lg blue-glassmorphism p-6 mt-3">                
-                    <div className="flex flex-col w-full p-2">                        
-                        <div className="text-white font-bold text-xl">
+                    <div className="flex flex-col w-full p-2 justify-center items-cener">                        
+                        <div className="text-white font-bold text-xl mb-10 justify-left">
                             Energy history
-                        </div>                        
+                        </div>  
+                        <LineChart width={650} height={300} data={data}>
+                            <Line type="monotone" dataKey="energy" stroke="#8884d8" />
+                            <CartesianGrid stroke=" #566573" strokeDasharray="3 3" />
+                            <XAxis dataKey="name" stroke="#b3b6b7" label='Dates' fontSize={10} padding={{left: 30, right: 30}}/>
+                            <Tooltip />
+                            <Legend />
+                            <YAxis stroke="#b3b6b7" label='KWH' fontSize={10}/>
+                        </LineChart>                      
                     </div>            
                 </div>
 
@@ -199,7 +210,7 @@ const MoreInfo = () => {
                 
                 <div className="flex flex-row w-full items-end justify-end">
                     <button type="button"
-                    className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"                     
+                    className="text-white mt-10 mb-10 text-l w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"                     
                     onClick={(e) => buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit)}
                     >
                         Confirm and buy
