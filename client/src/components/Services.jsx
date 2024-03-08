@@ -47,24 +47,36 @@ const Services = () => {
         setdata(1);
       }
 
-    return (        
-        <div className="flex flex-col w-full mt-10 justify-center items-center">            
+    return (      
+        <>
+       
+
+        <div className="flex flex-col w-full mt-10 justify-center items-center">     
+            
             {/*<button style={{position: 'flex',top:'100px',width:'300px',height:'60px'}} className='btn' onClick={(e) => handleclick()}>Generate Listing</button>*/}
             <div>                
                 
                 {data >=1 &&
                     <div className='grid grid-cols-3 gap-4 items-center justify-center content-around' >
                         {Providers !== undefined && CurrentAccount && arr.fill("1") && arr.map((x,i)=>{
+                            if(CurrentAccount.toUpperCase() == Providers[0][i][0].toUpperCase()){
+
+  
+                            }
+                            else{
                             let destLat = Providers[0][i][3];
                             let destLong = Providers[0][i][4];                            
                             return <BuyIndi Name= {Providers[0][i][1]} 
+                            SellerAddr ={Providers[0][i][0]}
                             Plant = {Providers[0][i][2]} 
                             Lat = {destLat} 
                             Long = {destLong} 
                             Energy={parseInt(Providers[0][i][5]['_hex'])} 
                             Price={parseInt(Providers[0][i][6]['_hex'])} 
                             curLat={curLat}
-                            curLong={curLong}/> 
+                            curLong={curLong}
+                            Desc={Providers[0][i][7]}/> 
+                            }
                         })}
                     {!CurrentAccount && 
                         <div>Please Connect to Metamask to continue </div>
@@ -73,7 +85,9 @@ const Services = () => {
                 }
             
             </div>
-        </div>    
+        </div>
+        </>
+  
     );
 }
 

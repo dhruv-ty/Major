@@ -19,14 +19,14 @@ const NavBar = () => {
                 <Link to="/"><img src={logo} className='w-20 cursor-pointer'/></Link>
             </div>
             <ul className='text-white md:flex hidden list-none flex-row justify-between items-center flex-initial'>
-            <Link to="/Sell"> <button type="button" className="text-white justify-center items-center px-8 my-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
-                    Sell
+            <Link to="/Sell"> <button type="button" className="text-white justify-center items-center px-8 my-4 active:bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
+                    Post An Ad
                 </button></Link>
                 {/* {["Buy", "Transactions", "Profile"].map((item, index) => (
                     <NavBarItem key={item + index} title={item} />
                 ))}    */}
-                <li className='text-white mx-4 cursor-pointer'><Link to="/Transactions">Transactions</Link></li>             
-                <li className='text-white mx-4 cursor-pointer'><Link to='/Profile'>Profile</Link></li>             
+                <li className='text-white mx-4 cursor-pointer hover:bg-[#2546bd] rounded-full px-8 my-4 py-2 active:bg-[#2952e3]'><Link to="/Transactions">Transactions</Link></li>             
+                <li className='text-white mx-4 cursor-pointer hover:bg-[#2546bd] rounded-full px-8 my-4 py-2'><Link to='/Profile'>Profile</Link></li>             
             </ul>
             <div className='flex relative'>
                 {toggleMenu

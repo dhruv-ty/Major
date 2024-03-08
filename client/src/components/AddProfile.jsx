@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
+import { EnergyContext } from "../context/EnergyContext";
+import { NodeContext } from "../context/NodeContext";
 
 const AddProfile = () => {
     const [Lat, setLat] = useState("");
     const [Long, setLong] = useState("");
+    const [Name, setName] = useState("");
+    const [PlantAdress, setPlantAdress] = useState("");
+    const [Desc,setDesc] =useState("");
+    const [Revenue,setRevenue] =useState(0);
+    const [NumberofSolarPannels, setNumberofSolarPannels] = useState(5);
+    const {addNode} = useContext(NodeContext);
 
     const componentDidMount = () => {
 
         navigator.geolocation.getCurrentPosition(function(position) {
             setLat('' + position.coords.latitude);
-            setLong('' + position.coords.longitude);
-    
-          console.log("Latitude is :", position.coords.latitude);
-    
+            setLong('' + position.coords.longitude);    
+          console.log("Latitude is :", position.coords.latitude);    
           console.log("Longitude is :", position.coords.longitude);
     
         });
@@ -38,7 +44,7 @@ const AddProfile = () => {
                     </div>
 
                     <div className="rounded-lg blue-glassmorphism w-5/6 mt-5">
-                        <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={"Rama Krishnan"} onChange={(e)=> setSenderName(e.target.value)} />                
+                        <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder={"Enter your Name"} onChange={(e)=> setName(e.target.value)} />                
                     </div>
                 </div>
 
@@ -48,7 +54,7 @@ const AddProfile = () => {
                     </div>
 
                     <div className="rounded-lg blue-glassmorphism w-5/6 mt-5">
-                        <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={"F-265, Ria Nagar, Bangalore 570001 Karnataka"} onChange={(e)=> setPlantAdress(e.target.value)} />                
+                        <input type="text" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder={"Enter your Plant Address"} onChange={(e)=> setPlantAdress(e.target.value)} />                
                     </div>
                 </div>
 
@@ -88,7 +94,7 @@ const AddProfile = () => {
                     </div>
 
                     <div className="rounded-lg w-5/6 mt-5 ml-3">
-                        <textarea onChange={(e)=> setDesc(e.target.value)} rows="5" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder="Enter some description about yourself or the energy providing">
+                        <textarea onChange={(e)=> setDesc(e.target.value)} rows="5" style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} placeholder="Enter a small description about yourself">
                             </textarea>             
                     </div>
                 </div>
@@ -101,13 +107,13 @@ const AddProfile = () => {
 
                     <div className="flex flex-row items-center w-2/6">
                         <div className="rounded-lg mt-5">
-                            <input type="number" min={2} style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={2}  onChange={(e)=> setUnits(e.target.value)}/>                
+                            <input type="number" min={2} style={{background: "rgb(39, 51, 89, 0.4)", border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={2}  onChange={(e)=> setNumberofSolarPannels(e.target.value)}/>                
                         </div>                        
                     </div>
                 </div>                                                               
 
                 <button type="button" className="text-white mt-10 mb-10 text-xl w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                onClick={(e)=> sendEnergy(SenderName, PlantAdress,Lat,Long,Units,PricePerUnit,Desc)}>
+                onClick={(e)=> addNode(Name, PlantAdress,Lat,Long,Revenue,NumberofSolarPannels, Desc)}>
                     Confirm
                 </button>
             </div>

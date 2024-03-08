@@ -1,11 +1,11 @@
 pragma solidity ^0.8.0;
 
 contract Node {
-    uint256 NumberofNodes=2;
+    uint256 NumberofNodes=0;
 
-    event SetupNode(address SenderAddress, string SenderName, string PlantAdress,string Lat,string Long,uint256 Units,uint256 PricePerUnit,string desc,uint256 timestamp);
-    
-    
+    event SetupNode(address WalletAddress, string Name, string PlantAdress,string Lat,string Long,uint256 Revenue,uint256 NumberofSolarPannels,string desc,uint256 timestamp);
+    event UpdateRevenue(uint Index);
+
     struct NodeStruct {
 
         address WalletAddress;
@@ -16,6 +16,7 @@ contract Node {
         uint256 Revenue;
         uint256 NumberofSolarPannels;
         string desc;
+        uint256 CarbonFootPrint;
         uint256 timestamp;
 
     }
@@ -25,10 +26,51 @@ contract Node {
 
     
 
-    function addVal() public {
-        Nodes.push(NodeStruct(0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A,"Ramesh Swammy","J-156, BLock 2, Ramanagar, Karnataka",'15.6572','13.5671',245000,10,"Hello, you will get Cheap Energy Here",block.timestamp));
+    function addVal(address payable WalletAddress, string memory Name, string memory PlantAdress,string memory Lat,string memory Long,uint256 Revenue,uint256 NumberofSolarPannels,string memory desc, uint256 CarbonFootPrint) public {
+        Nodes.push(NodeStruct( WalletAddress,
+        Name,
+        PlantAdress,
+        Lat ,
+        Long ,
+        Revenue,
+        NumberofSolarPannels,
+        desc,
+        CarbonFootPrint,
+        block.timestamp));
+
+        emit SetupNode(WalletAddress, Name, PlantAdress, Lat, Long, Revenue, NumberofSolarPannels, desc, block.timestamp);
         
     }
+
+    function updateRevenue(address payable WalletAddress, string memory Name, string memory PlantAdress,string memory Lat,string memory Long, uint256 Revenue, uint256 NumberofSolarPannels, string memory desc,uint256 CarbonFootPrint, uint Index) public {
+        Nodes.push(NodeStruct(WalletAddress,
+        Name,
+        PlantAdress,
+        Lat ,
+        Long ,
+        Nodes[Index].Revenue + Revenue,
+        NumberofSolarPannels,
+        desc,CarbonFootPrint,block.timestamp));
+        Nodes[Index] = Nodes[Nodes.length -1];
+        Nodes.pop();
+        emit UpdateRevenue(Index);
+    }
+
+    function updateCarbonFootPrint(address payable WalletAddress, string memory Name, string memory PlantAdress,string memory Lat,string memory Long, uint256 Revenue, uint256 NumberofSolarPannels, string memory desc,uint256 CarbonFootPrint, uint Index) public {
+        Nodes.push(NodeStruct(WalletAddress,
+        Name,
+        PlantAdress,
+        Lat ,
+        Long ,
+        Revenue,
+        NumberofSolarPannels,
+        desc,((Nodes[Index].CarbonFootPrint) + CarbonFootPrint) / 2,block.timestamp));
+        Nodes[Index] = Nodes[Nodes.length -1];
+        Nodes.pop();
+        emit UpdateRevenue(Index);
+    }
+
+    
     function getAll() public view returns (NodeStruct[] memory){
         return Nodes;
         

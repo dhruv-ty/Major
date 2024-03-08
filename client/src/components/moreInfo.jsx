@@ -3,35 +3,94 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
+import './Loader.css'
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { EnergyContext } from "../context/EnergyContext";
+import { NodeContext } from "../context/NodeContext";
+import Loader from "./Loader";
 
 const MoreInfo = () => {
     const {buyEnergy}=useContext(BuyContext);
-    
+    const {handlecount,Providers,updateVals}=useContext(EnergyContext);
+    const {handlenodecount,CurrentAccount, EnergyProviders,updateNode} = useContext(NodeContext);
+    const [NumberofSolarPannels, setNumberofSolarPannels] = useState(0);
+    const [Color,setColor]=useState("green");
+    const [Desc,setDesc] =useState("");
+    const [Loading, setLoading] = useState(true);
     const data = [{name: '2/11/2023', energy: 0}, {name: '2/12/2023', energy: 250}, {name: '3/12/2023', energy: 200}, {name: '4/12/2023', energy: 100}];
+    const [Index, setIndex] = useState(-1);
+    const [NodeIndex, setNodeIndex] = useState(-1);
+    const [CarbonFootPrint, setCarbonFootPrint] = useState(-1);
 
-    const [SellerLat, setSellerLat] = useState("");
-    const [SellerLong, setSellerLong] = useState("");
-    const [starRating, setStarRating] = useState(0);
-    const [SellerAddress, setSellerAddress] = useState("0x6904a7e5497e8270Afd9F9ee46321a9b0A75DB5A");
-    const [SellerName, setSellerName] = useState("Rama Krishnan");
-    const [SellerPlantAdress, setSellerPlantAdress] = useState("F-265, Ria Nagar, Bangalore 570001 Karnataka");
-    const [PricePerUnit, setPricePerUnit] = useState(6);
-    const [TotalPrice, setTotalPrice] = useState(0);    
 
     // buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit);
 
     const location = useLocation();
-    const [locState, setLocState] = useState({name: '', plant: '', energy: '', price: '', lat: '', long: '', dist: ''})
+    const [locState, setLocState] = useState({selleraddr: '', name: '', plant: '', energy: '', price: '', lat: '', long: '', dist: '', desc: ''})
 
     useEffect(() => {
         console.log(location.state)        
         if(location.state){            
-            setLocState(location.state);            
-        }               
-    }, [location])
+            setLocState(location.state);
+           
+        } 
+        handlecount();
+        if(typeof Providers[0] === 'undefined' || Providers[0] === null){
+            console.log("wait");
+        }
+        else
+        setProviderState();
 
-    const [Units, setUnits] = useState(0);
+        handlenodecount();
+        if(typeof EnergyProviders[0] === 'undefined' || EnergyProviders[0] === null){
+            console.log("wait");
+        }
+        else{
+        setEnergyProviderState();
+        setLoading(false);
+        if(CarbonFootPrint <= 30)
+        setColor('green');
+        else if(CarbonFootPrint > 30 && CarbonFootPrint <= 100)
+        setColor("yellow");
+        else
+        setColor("red");
+        
+        }  
+    });
+
+
+    const setProviderState = () =>{
+        Object.values(Providers[0]).map((x)=>{
+            if ( locState.selleraddr.toUpperCase() === x[0].toUpperCase() ){
+                setIndex(Object.keys(Providers[0]).find(key => Providers[0][key] === x));
+            }
+              
+        })
+        console.log(Index);
+    }
+
+    const setEnergyProviderState = () =>{
+        Object.values(EnergyProviders[0]).map((x)=>{
+            if ( locState.selleraddr.toUpperCase() === x[0].toUpperCase() ){
+                
+                setNodeIndex(Object.keys(EnergyProviders[0]).find(key => EnergyProviders[0][key] === x));
+                setNumberofSolarPannels(parseInt(x[6]['_hex']))
+                setCarbonFootPrint(parseInt(x[8]['_hex']));
+                setDesc(x[7]);
+            }
+              
+        })
+        console.log("Node Index = > " + NodeIndex);
+    }
+
+    const handleClick = () =>{
+         buyEnergy(locState,Units);
+         updateVals(locState,Units,Index)
+         updateNode(locState,NumberofSolarPannels,Desc,Units,locState.price,NodeIndex,CarbonFootPrint)
+
+    }
+    const [Units, setUnits] = useState(locState.energy);
 
     return (        
         <div className="flex flex-row w-full mt-20 justify-center items-center">
@@ -47,9 +106,6 @@ const MoreInfo = () => {
                             <div className="text-white font-bold text-2xl mr-2">
                                 {locState.name} 
                             </div>
-                            <div className="ml-2 mt-2">
-                                <Rating style={{ maxWidth: 100, maxHeight: 30}} value={4} items={5} readOnly={true}/>  
-                            </div>  
                         </div>                      
 
                         <div className=" text-[#9ca3af] text-xl mt-1">
@@ -66,9 +122,34 @@ const MoreInfo = () => {
                         
                                           
                     </div>
+                     {Loading ?
+                     <div style={{position: 'relative', right: '55px'}}>
+                        <div class="loader" ></div>
+                     </div>
+                     
+
+                    :
+                                         
+                    <div className="flex flex-row items-center">
+                        <div className="bg-[#097969] rounded-lg mt-3 p-3 m-3">
+                            <div className="text-white font-bold text-xl">
+                                {CarbonFootPrint} 
+                            </div>
+                            {/*
+                            <input className="blue-glassmorphism" type="number" min="8" style={{border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue="6" />                
+                            */}
+                        </div>
+                        
+                        <div className="text-xl text-white mb-1 mr-3 ml-3">
+                            <EnergySavingsLeafIcon  style={{color: Color , fontSize: '60px'}} fontSize="large"></EnergySavingsLeafIcon>
+                        </div>
+                    </div>
+
+                    }   
+
                 </div>
 
-                <div className="flex flex-row w-full justify-center items-center rounded-lg blue-glassmorphism p-6 mt-3">                
+                {/* <div className="flex flex-row w-full justify-center items-center rounded-lg blue-glassmorphism p-6 mt-3">                
                     <div className="text-white font-bold text-xl w-4/6">
                         Number of solar panels installed
                     </div>      
@@ -76,9 +157,9 @@ const MoreInfo = () => {
                     <div className="w-2/6 text-white text-xl font-bold font-sans mx-4 rounded-lg blue-glassmorphism justify-center items-center w-fit px-3 py-1">
                         10
                     </div>              
-                </div>
+                </div> */}
 
-                <div className="flex flex-row w-full rounded-lg blue-glassmorphism p-6 mt-3">                
+                {/* <div className="flex flex-row w-full rounded-lg blue-glassmorphism p-6 mt-3">                
                     <div className="flex flex-col w-full p-2 justify-center items-cener">                        
                         <div className="text-white font-bold text-xl mb-10 justify-left">
                             Energy history
@@ -102,7 +183,7 @@ const MoreInfo = () => {
                     <div className="w-2/6 text-white text-xl font-bold font-sans mx-4 rounded-lg blue-glassmorphism justify-center items-center w-fit px-3 py-1">
                         1000000₹
                     </div>              
-                </div>
+                </div> */}
 
                 <div className="text-white font-bold text-3xl items-start justify-start mt-10 mb-5">
                     Buy energy
@@ -159,12 +240,8 @@ const MoreInfo = () => {
                             <div className="flex flex-row items-center w-2/6">
                                 <div className="rounded-lg blue-glassmorphism mt-5">
                                     <input onChange={(e) => {
-                                        if(e.target.value > locState.energy){                                            
-                                            
-                                        }else{
-                                            setUnits(e.target.value)
-                                        }
-                                            
+                                        setUnits(e.target.value);
+                                        
                                         }} step={2} type="number" min={5} max={locState.energy} className="blue-glassmorphism" style={{ border: 0, width: "100%", borderRadius: 10, color: "#9ca3af"}} defaultValue={locState.energy} />                
                                 </div>
 
@@ -193,25 +270,11 @@ const MoreInfo = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row w-full rounded-lg blue-glassmorphism p-6 mt-3">                
-                    <div className="flex flex-col w-full p-2">                        
-                        <div className="text-white font-bold text-xl">
-                            Already purchased from {locState.name}?
-                        </div>                        
-                    
-                        <div className="flex flex-row w-full items-center justify-center mt-4">
-                            <div className="text-white font-bold text-xl mr-10">
-                                    Give a rating 
-                            </div>   
-                            <Rating style={{ maxWidth: 150, maxHeight: 70}} value={starRating} items={5} onChange={(e) => {setStarRating(e)}} />  
-                        </div>
-                    </div> 
-                </div>
                 
-                <div className="flex flex-row w-full items-end justify-end">
+                <div className="flex flex-row w-full items-end justify-center">
                     <button type="button"
                     className="text-white mt-10 mb-10 text-l w-fit mr-4 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"                     
-                    onClick={(e) => buyEnergy(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit)}
+                    onClick={(e) => handleClick()}
                     >
                         Confirm and buy
                     </button>

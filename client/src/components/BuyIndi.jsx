@@ -1,13 +1,17 @@
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { EnergyContext } from '../context/EnergyContext';
 
-const BuyIndi = ({Name, Plant, Energy, Price, Lat, Long, Distance, curLat, curLong}) => {
+const BuyIndi = ({Name, SellerAddr, Plant, Energy, Price, Lat, Long, Distance, curLat, curLong,Desc}) => {
 
     let dist = (Math.acos((Math.sin(curLat*(Math.PI/180.0))*Math.sin(Lat*(Math.PI/180.0))) + (Math.cos(curLat*(Math.PI/180.0))*Math.cos(Lat*(Math.PI/180.0))*Math.cos((Long*(Math.PI/180.0))-(curLong*(Math.PI/180.0)))))*6371).toFixed(2)
+    const {CurrentAccount}=useContext(EnergyContext);
+    return (
+        <>
 
-    return (        
+        
         <div className="flex justify-center items-center rounded-lg blue-glassmorphism mx-5">
             <div className="flex flex-col w-[350px]">
                 
@@ -29,10 +33,10 @@ const BuyIndi = ({Name, Plant, Energy, Price, Lat, Long, Distance, curLat, curLo
 
                 <div className="flex flex-row w-full justify-between">      
                     <div className='flex flex-row mx-4'>
-                        <Rating style={{ maxWidth: 100, maxHeight: 30}} value={4} items={5} readOnly={true}/>    
+                           
                     </div>              
                     <div className="items-end justify-end">
-                        <Link to="/MoreInfo" state={{name: Name, plant: Plant, energy: Energy, price: Price, lat: Lat, long: Long, dist: dist}}>
+                        <Link to="/MoreInfo" state={{selleraddr: SellerAddr, name: Name, plant: Plant, energy: Energy, price: Price, lat: Lat, long: Long, dist: dist, desc: Desc}}>
                             <button type="button" className="text-white text-xs justify-center w-fit items-center mr-4 px-4 mb-4 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]">
                                 More Info
                             </button>
@@ -43,6 +47,8 @@ const BuyIndi = ({Name, Plant, Energy, Price, Lat, Long, Distance, curLat, curLo
             </div>    
 
         </div>    
+
+        </>       
     );
 }
 

@@ -1,5 +1,5 @@
 import Abi from './Energy.json'
 
 
-export const contractABI =Abi.abi;
-export const contractAddress = '0xDde0FFfa38C4cDc88135Dd5483f214dA90e21ecC' ;
+export const contractABIEnergy =Abi.abi;
+export const contractAddressEnergy = '0x2BEf55a939775f56762899cbbA5ee65075764Ce9' ;

@@ -5,17 +5,22 @@ import { useContext, useState } from "react";
 import { EnergyContext } from "../context/EnergyContext";
 import { BuyContext } from "../context/BuyContext";
 import { Description } from "@ethersproject/properties";
+import Loader from "./Loader";
 
 const Transactions = () => {
 
   const {handlecount,Transactions,CurrentAccount}=useContext(BuyContext);
-  const [data, setdata] = useState({})
+  const [data, setdata] = useState(0)
   const [len, setlen] = useState(0)
+  const [Loading, setLoading] = useState(true);
   const arr=new Array(len);
   handlecount();
 
   useEffect(() => {
     getDataLen();
+    if(data == 1)
+    setLoading(false);
+    console.log(Loading);
   })
   
   async function getDataLen() {
@@ -43,15 +48,18 @@ const Transactions = () => {
     <div className="flex w-full justify-center items-center ">
       {/*<button style={{position: 'flex',top:'100px',width:'300px',height:'60px'}} className='btn' onClick={(e) => handleclick()}>Generate Listing</button>*/}
     <div>                
-      {data >=1 &&
+      {data >=1 ?
           <div className='grid grid-cols-3 gap-4 items-center justify-center content-around' >
               {Transactions !== undefined && CurrentAccount && arr.fill("1") && arr.map((x,i)=>{                                    
-                  return <TransactionCard sellerName={Transactions[0][i]['SellerName']} description={Transactions[0][i]['SellerPlantAdress']} date={Transactions[0][i]['timestamp']['_hex']} amount={parseInt(Transactions[0][i]['TotalPrice']['_hex'])} energyPurchased={parseInt(Transactions[0][i]['Units']['_hex'])} profit={0}/>
+                  return <TransactionCard BuyerAddress= {Transactions[0][i]['BuyerAddress']} sellerName={Transactions[0][i]['SellerName']} description={Transactions[0][i]['SellerPlantAdress']} date={Transactions[0][i]['timestamp']['_hex']} amount={parseInt(Transactions[0][i]['TotalPrice']['_hex'])} energyPurchased={parseInt(Transactions[0][i]['Units']['_hex'])} profit={0}/>
               })}
           {!CurrentAccount && 
               <div>Please Connect to Metamask to continue </div>
           }
           </div>
+          :
+          <div style={{marginTop: '250px'}}><Loader ></Loader></div>
+          
       }
   </div>
 </div>           

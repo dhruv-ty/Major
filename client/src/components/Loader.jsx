@@ -1,6 +1,11 @@
+import './Loader.css';
 const Loader = () => {
-    return (        
-        <h1>Loader</h1>        
+    return ( 
+        <div style={{display: 'flex',flexDirection: 'column' , gap: '20px',marginBottom:'120px'}}>
+        <div class="loader">
+        </div>
+            <div style={{color: 'white',position:"relative",left:'-5px'}}> Loading...</div>      
+        </div>       
     );
 }
 

@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import {ethers} from 'ethers';
 
-import { contractABI, contractAddress } from '../Utils/constants';
+import { contractABIEnergy, contractAddressEnergy } from '../Utils/constants';
 
 export const EnergyContext = React.createContext();
 
@@ -12,7 +12,7 @@ const getEthereumContract = async () =>{
 await provider.send("eth_requestAccounts", []);
 
 const signer = provider.getSigner()
-    const EnergyContract = new ethers.Contract(contractAddress,contractABI,signer)
+    const EnergyContract = new ethers.Contract(contractAddressEnergy,contractABIEnergy,signer)
      console.log(EnergyContract);
      return EnergyContract;
 
@@ -85,15 +85,44 @@ const handlecount = async () =>{
 
         throw new Error("No Ethereum Object");
     }
+}   
+
+const updateVals =async (locState,Units,Index) =>{
+    try {
+        if(!ethereum) return alert("Please Install MetaMask");
+       // const {addressto, amount, message} = formdata;
+        const EnergyContract=getEthereumContract();
+        const parsedamount=ethers.utils.parseEther("0.0001");
+
+        console.log("Number of Updated Units=> " + (locState.energy - Units));
+        
+        // await ethereum.request({
+        //     method: 'eth_sendTransaction',
+        //     params: [{
+        //         from: CurrentAccount,
+        //         to: '0x203d8f9B976828C49f43E30Cd6A6737B24CD6E88',
+        //         gas: '0x5208',
+        //         value: parsedamount._hex,
+        //     }]
+        // });
+        const res = (await EnergyContract).functions;
+        // console.log(locState.energy);
+        await res.updateUnits(locState.selleraddr,locState.name,locState.plant,locState.lat,locState.long,(locState.energy - Units),locState.price,locState.desc,Index).then((x)=>console.log("Transaction Successful"));         
+        
+}catch (error) {
+    console.log(error);
+
+    throw new Error("No Ethereum Object");
 }
-    const sendEnergy = async ( SenderName, PlantAdress,Lat,Long,Units,PricePerUnit,Desc) =>{
+}
+    const sendEnergy = async ( Name, PlantAdress,Lat,Long,Units,PricePerUnit,Desc) =>{
         try {
             if(!ethereum) return alert("Please Install MetaMask");
            // const {addressto, amount, message} = formdata;
             const EnergyContract=getEthereumContract();
             const parsedamount=ethers.utils.parseEther("0.0001");
 
-            console.log(CurrentAccount, SenderName, PlantAdress,Lat,Long,Units,PricePerUnit,Desc);
+            console.log(CurrentAccount, Name, PlantAdress,Lat,Long,Units,PricePerUnit,Desc);
             
             await ethereum.request({
                 method: 'eth_sendTransaction',
@@ -106,7 +135,7 @@ const handlecount = async () =>{
             });
             const res = (await EnergyContract).functions;
 
-            await res.addVal(SenderName, PlantAdress,Lat,Long,Units,PricePerUnit,Desc).then((x)=>console.log("Transaction Successful"));         
+            await res.addVal(Name, PlantAdress,Lat,Long,Units,PricePerUnit,Desc).then((x)=>console.log("Transaction Successful"));         
             
          
          /* setloading(true);
@@ -126,7 +155,7 @@ const handlecount = async () =>{
     }
     
     return (
-        <EnergyContext.Provider value={{connectwallet,CurrentAccount,handlecount,sendEnergy,Providers}}> 
+        <EnergyContext.Provider value={{connectwallet,CurrentAccount,handlecount,sendEnergy,Providers,updateVals}}> 
             {children}
         </EnergyContext.Provider>
     );

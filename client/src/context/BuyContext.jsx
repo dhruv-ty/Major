@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import {ethers} from 'ethers';
 
 import { contractABI, contractAddress } from '../Utils/buyconstants';
+import { contractABIEnergy, contractAddressEnergy } from '../Utils/constants';
 
 export const BuyContext = React.createContext();
 
@@ -13,6 +14,18 @@ await provider.send("eth_requestAccounts", []);
 
 const signer = provider.getSigner()
     const EnergyContract = new ethers.Contract(contractAddress,contractABI,signer)
+     console.log(EnergyContract);
+     return EnergyContract;
+
+}
+
+const getEthereumContractEnergy = async () =>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+await provider.send("eth_requestAccounts", []);
+
+const signer = provider.getSigner()
+    const EnergyContract = new ethers.Contract(contractAddressEnergy,contractABIEnergy,signer)
      console.log(EnergyContract);
      return EnergyContract;
 
@@ -90,27 +103,27 @@ const handlecount = async () =>{
         throw new Error("No Ethereum Object");
     }
 }
-    const buyEnergy = async (SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit) =>{
+    const buyEnergy = async (locState,Units) =>{
         try {
             if(!ethereum) return alert("Please Install MetaMask");
            // const {addressto, amount, message} = formdata;
             const EnergyContract=getEthereumContract();
             const parsedamount=ethers.utils.parseEther("0.0001");
 
-            console.log(CurrentAccount,SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit, Units * PricePerUnit );
+            console.log(locState.selleraddr,locState.name,locState.plant,locState.lat,locState.long,Units,locState.price,locState.price*Units);
             
             await ethereum.request({
                 method: 'eth_sendTransaction',
                 params: [{
                     from: CurrentAccount,
-                    to: SellerAddress,
+                    to: locState.selleraddr,
                     gas: '0x5208',
                     value: parsedamount._hex,
                 }]
             });
             const res = (await EnergyContract).functions;
 
-            await res.addVal(SellerAddress, SellerName,SellerPlantAdress,SellerLat,SellerLong,Units,PricePerUnit, Units * PricePerUnit ).then((x)=>console.log("Transaction Successful"));         
+            await res.addVal(locState.selleraddr,locState.name,locState.plant,locState.lat,locState.long,Units,locState.price,locState.price*Units).then((x)=>console.log("Transaction Successful"));                     
             
          
          /* setloading(true);
